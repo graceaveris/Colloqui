@@ -7,42 +7,65 @@ import Timer from './components/Timer';
 class App extends Component {
 
   state = {
-    player1: {
-      language: 'Spanish',
-      level: 'Beginner'
-    },
 
-    player2: {
-      language: 'English',
-      level: 'Intermediate'
+    players: [
+      { language: 'English', level: "" },
+      { language: 'Spanish', level: "" },
+    ],
+
+    readyToStart: false,
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.players !== this.state.players) {
+      this.handleStartCheck()
     }
+  }
+
+  handleStartCheck = () => {
+    if (this.state.players[0].level && this.state.players[1].level) {
+      this.setState ({ readyToStart: true })
+    }
+  }
+
+  handleChange = (level, language) => {
+    let playersArray = [...this.state.players]
+    playersArray.forEach(p => {
+      if (p.language === language) {
+        p.level = level      
+      }
+    })
+    this.setState({ players: playersArray})
   }
 
   render() {
   return (
     <div className="App">
-      <body className='container'>
+      <div className='body'>
 
         <Nav />
 
         <Player 
         class="player player--1"
-        language={this.state.player1.language}
-        level={this.state.player1.level}
+        language={this.state.players[0].language}
+        level={this.state.players[0].level}
+        onChange={this.handleChange}
         />
 
-        <Timer />
+        <Timer 
+        readyToStart={this.state.readyToStart}/>
 
         <Player 
         class="player player--2"
-        language={this.state.player2.language}
-        level={this.state.player2.level}
+        language={this.state.players[1].language}
+        level={this.state.players[1].level}
+        onChange={this.handleChange}
         />
 
-      </body>
+      </div>
     </div>
   );
-  }
+ }
 }
 
 export default App;

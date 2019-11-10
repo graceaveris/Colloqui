@@ -1,0 +1,23 @@
+.player {
+    border-radius: 100%;
+    width: 25vw;
+    height: 25vw;
+    margin: 1.5rem;
+    text-align: center;
+    background-color: lightcoral;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center; //aligns the text
+    align-self: center; //aligns the circle
+
+
+    &--1 {
+        grid-column: 1 / 4;
+
+    }
+
+    &--2 {
+        grid-column:  7 / 10;
+    }
+}

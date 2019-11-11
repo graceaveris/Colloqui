@@ -3,6 +3,7 @@ import './sass/main.scss';
 import Nav from './components/Nav';
 import Player from './components/Player';
 import Timer from './components/Timer';
+import TalkPoint from './components/TalkPoint';
 
 class App extends Component {
 
@@ -13,7 +14,13 @@ class App extends Component {
       { language: 'Spanish', level: "" },
     ],
 
+    talkPoints: {
+         "english": ['question 1', 'question 2', 'question 3'],
+         "spanish": ['question 1', 'question 2', 'question 3'],
+    },
+
     readyToStart: false,
+  
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -61,6 +68,9 @@ class App extends Component {
         level={this.state.players[1].level}
         onChange={this.handleChange}
         />
+
+        <TalkPoint 
+        className="talkpoint" />
 
       </div>
     </div>

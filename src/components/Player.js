@@ -1,7 +1,7 @@
 import React from 'react';
 
 const player = ( props ) => {
- 
+  //this component displays the player information
     return (
       <div className={props.class}>
         <h3>{props.language}</h3>

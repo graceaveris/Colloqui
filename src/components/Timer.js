@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
 class Timer extends Component {
+//this component handles the timer countdown
 //prop is readyToStart
+//prop is turnCount
   state = {
-    count: 25, //countdown start in seconds
+    count: 1, //countdown start in seconds
     timerStatus: '', // 
   }
 
@@ -28,7 +30,11 @@ class Timer extends Component {
   countDown() {
     this.inter = setInterval(() => {
       if (this.state.count <= 0) {
+        this.changeTurn();
+
+      } else if (this.props.turnCount === -1 ) {
         clearInterval(this);
+
       } else { // eventually will add logic here to update app when we reach 0
         this.setState((prevState) => {
           return {count: prevState.count - 1 }
@@ -36,6 +42,12 @@ class Timer extends Component {
       }
     }, 1000)
   }
+
+changeTurn = () => {
+  clearInterval(this.inter);
+  this.props.handleTurnChange();
+  this.setState ({ count: 2, timerStatus: ''});
+}
 
   // function to update the questions etc in main app once we hit zero
 

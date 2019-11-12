@@ -5,7 +5,8 @@ import Player from './components/Player';
 import Timer from './components/Timer';
 import TalkPoint from './components/TalkPoint';
 
-class App extends Component {
+class App extends Component { 
+  //this component handles logic for setting up the exchange, and manages important core data.
 
   state = {
 
@@ -14,15 +15,12 @@ class App extends Component {
       { language: 'Spanish', level: "" },
     ],
 
-    talkPoints: {
-         "english": ['question 1', 'question 2', 'question 3'],
-         "spanish": ['question 1', 'question 2', 'question 3'],
-    },
-
-    readyToStart: false,
-  
+    readyToStart: false, // lets app know when we're ready to start the exchange.
+    turnCount: 3, // keeps count of the turns.
+    turnLanguage: 'spanish', // language of current turn.
   }
-
+  
+  //logic for exchange setup
   componentDidUpdate(prevProps, prevState) {
     if (prevState.players !== this.state.players) {
       this.handleStartCheck()
@@ -45,6 +43,12 @@ class App extends Component {
     this.setState({ players: playersArray})
   }
 
+   // logic for core game flow.
+  handleTurnChange = () => {
+     this.setState({ turnCount: this.state.turnCount - 1 })
+  }
+   // write function to countdown 
+    
   render() {
   return (
     <div className="App">
@@ -60,7 +64,9 @@ class App extends Component {
         />
 
         <Timer 
-        readyToStart={this.state.readyToStart}/>
+        readyToStart={this.state.readyToStart}
+        handleTurnChange={this.handleTurnChange}
+        turnCount={this.state.turnCount}/>
 
         <Player 
         class="player player--2"
@@ -70,8 +76,10 @@ class App extends Component {
         />
 
         <TalkPoint 
-        className="talkpoint" />
-
+        className="talkpoint" 
+        englishLevel={this.state.players[0].level}
+        spanishLevel={this.state.players[1].level}
+        turnCount={this.state.turnCount} />
       </div>
     </div>
   );

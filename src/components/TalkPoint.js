@@ -3,35 +3,46 @@ import React, { Component } from 'react';
 class TalkPoint extends Component {
     //this component handles the exchange functionality
     //needs to display once 'start' button in countdown is clicked
-    // recieves, start determinator, turncount, 
+    // recieves, start determinator, turncount,
+    
+    //props: englishLevel, spanishLevel, turnLanguage, turncount
 
-  state = {
-    talkPoints: {
-        "english":  {
-           "beginner": ['EN beg question 1', 'EN beg question 2', 'EN beg question 3'],
-           "intermediate": ['EN int question 1', 'EN int question 2', 'EN int question 3'],
-           "intermediate": ['EN adv question 1', 'EN adv question 2', 'EN adv question 3'],
-        },
+  state = {  //replace with database that selects 10 from larger data set
+      talkPoints: {
+          English: {
+            beginner: {  1: { "content": "hello"}, 2: { "content": "hello"}, 3: { "content": "hello"} }
+            },
 
-        "spanish":  {
-          "beginner": ['SP beg question 1', 'SP beg question 2', 'SP beg question 3'],
-          "intermediate": ['SP int question 1', 'SP int question 2', 'SP int question 3'],
-          "intermediate": ['SP adv question 1', 'SP adv question 2', 'SP adv question 3'],
-        },
-     },
-
-     turn: 'english',
+          Spanish: {
+            beginner: {  1: { "content": "hello"}, 2: { "content": "hello"}, 3: { "content": "hello"} }
+          }
+      },
      ready: false,
   }
 
+ componentDidUpdate() {
+   this.getNextQuestion()
+ }
+
+ getNextQuestion = () => { //YES!!! TIDY!!!
+   if (this.props.turnCount < 6) {
+    let turnCount = this.props.turnCount
+    turnCount = Math.round(turnCount / 2).toString()
+    let currentQuestion = this.state.talkPoints[this.props.turnLanguage][this.props.spanishLevel][turnCount].content
+    console.log(currentQuestion)
+    return ( currentQuestion )
+   }
+    
+ }
+
+
  render() {
+
 
  return (
 
     <div className="talkpoint">
-        <h3>Discuss in {this.state.turn}</h3>
-        <p>hello</p>
-        <p>{this.props.turnCount}</p>
+        <h3>Discuss in {this.props.turnLanguage}: {this.getNextQuestion()}</h3>
     </div>
 
   );

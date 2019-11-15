@@ -2,47 +2,68 @@ import React, { Component } from 'react';
 
 class TalkPoint extends Component {
     //this component handles the exchange functionality
-    //needs to display once 'start' button in countdown is clicked
-    // recieves, start determinator, turncount,
     
     //props: englishLevel, spanishLevel, turnLanguage, turncount
 
-  state = {  //replace with database that selects 10 from larger data set
+  state = {  //wil eventually replace state with database that selects talkpoints from larger data set
       talkPoints: {
           English: {
-            beginner: {  1: { "content": "hello"}, 2: { "content": "hello"}, 3: { "content": "hello"} }
-            },
-
+            beginner: {  1: { "content": "en beginner question 1"}, 
+                         2: { "content": "en beginner question 2"}, 
+                         3: { "content": "en beginner question 3"} },
+            intermediate: {  
+                         1: { "content": "en intermediate question 1"}, 
+                         2: { "content": "en intermediate question 2"}, 
+                         3: { "content": "en intermediate question 3"} },
+            advanced: {    
+                         1: { "content": "en advanced question 1"}, 
+                         2: { "content": "en advanced question 2"}, 
+                         3: { "content": "en advanced question 3"} 
+                        },
+                    },
           Spanish: {
-            beginner: {  1: { "content": "hello"}, 2: { "content": "hello"}, 3: { "content": "hello"} }
-          }
+            beginner: {  1: { "content": "sp beginner question 1"}, 
+                         2: { "content": "sp beginner question 2"}, 
+                         3: { "content": "sp beginner question 3"} },
+            intermediate: {  
+                         1: { "content": "sp intermediate question 1"}, 
+                         2: { "content": "sp intermediate question 2"}, 
+                         3: { "content": "sp intermediate question 3"} },
+            advanced: {    
+                         1: { "content": "sp advanced question 1"}, 
+                         2: { "content": "sp advanced question 2"}, 
+                         3: { "content": "sp advanced question 3"} },
+          },
       },
      ready: false,
-  }
+     currentTalkpoint: '',
+   }
 
- componentDidUpdate() {
-   this.getNextQuestion()
+ componentDidMount() {
+   this.getTalkPoint();
  }
 
- getNextQuestion = () => { //YES!!! TIDY!!!
-   if (this.props.turnCount < 6) {
+ componentDidUpdate(prevProps, prevState) {
+   if (prevState.currentTalkpoint === this.state.currentTalkpoint) {
+  this.getTalkPoint();
+   }
+}
+
+ getTalkPoint = () => {
+   if (this.props.turnCount > 0) {
     let turnCount = this.props.turnCount
     turnCount = Math.round(turnCount / 2).toString()
-    let currentQuestion = this.state.talkPoints[this.props.turnLanguage][this.props.spanishLevel][turnCount].content
-    console.log(currentQuestion)
-    return ( currentQuestion )
+    let currentTalkpoint = this.state.talkPoints[this.props.turnLanguage][this.props.spanishLevel][turnCount].content
+    this.setState({ currentTalkpoint: currentTalkpoint })
    }
-    
  }
 
-
  render() {
-
 
  return (
 
     <div className="talkpoint">
-        <h3>Discuss in {this.props.turnLanguage}: {this.getNextQuestion()}</h3>
+        <h3>Discuss in {this.props.turnLanguage}: {this.state.currentTalkpoint}</h3>
     </div>
 
   );

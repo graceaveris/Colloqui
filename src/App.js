@@ -59,7 +59,24 @@ class App extends Component {
    // write function to countdown 
     
   render() {
-  return (
+    let talkPoint;
+    if (this.state.readyToStart) {
+      talkPoint = (
+        <TalkPoint 
+        className="talkpoint" 
+        englishLevel={this.state.players[0].level}
+        spanishLevel={this.state.players[1].level}
+        turnCount={this.state.turnCount} 
+        turnLanguage={this.state.turnLanguage} />
+      )
+    } else {
+      talkPoint = (
+      <div className="talkpoint">
+      <h3>Select level to begin</h3>
+      </div> )
+    }
+  
+    return (
     <div className="App">
       <div className='body'>
 
@@ -84,12 +101,7 @@ class App extends Component {
         onChange={this.handleLevelSet}
         />
 
-        <TalkPoint 
-        className="talkpoint" 
-        englishLevel={this.state.players[0].level}
-        spanishLevel={this.state.players[1].level}
-        turnCount={this.state.turnCount} 
-        turnLanguage={this.state.turnLanguage} />
+        {talkPoint}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ class Timer extends Component {
     countdown: 5, //countdown start in seconds
     timerStatus: '', // false, active, or paused
   }
-
+  
 //clears interval when unmounted
   componentWillUnmount() {
     clearInterval(this.inter);
@@ -16,18 +16,28 @@ class Timer extends Component {
 
 // starts timer
   handleStartClick = () => { 
-      this.countDown()
-      this.setState({ timerStatus: 'active' })
+    this.countDown()
+    this.props.handleGameStatusChange('active') //sets app.js to active
+    this.setState({ timerStatus: 'active' })
   }
+
 // pauses timer
   handlePauseClick = () => { 
      if (this.props.readyToStart) {
      clearInterval(this.inter)
+     this.props.handleGameStatusChange('paused') //sets app.js to active
      this.setState({ timerStatus: 'paused' })
    } 
   }
+
+// changes turn and setsets timer when time runs out STAYS
+changeTurn = () => {
+  clearInterval(this.inter);
+  this.props.handleTurnChange();
+  this.setState ({ countdown: 5, timerStatus: ''});
+}
  
-//timer management
+//timer management STAYS
   countDown() {
     this.inter = setInterval(() => {
       if (this.state.countdown <= 0) {
@@ -44,13 +54,6 @@ class Timer extends Component {
     }, 1000)
   }
 
-  // changes turn and setsets timer when time runs out
-changeTurn = () => {
-  clearInterval(this.inter);
-  this.props.handleTurnChange();
-  this.setState ({ countdown: 5, timerStatus: ''});
-}
-
   // function to update the questions etc in main app once we hit zero
 
   render() {
@@ -58,21 +61,25 @@ changeTurn = () => {
     let timerButton; //maybe need convert to function in future
 
     if (!this.props.readyToStart) { //if we are waiting on player details
-       timerButton = ( <h3>Select level</h3> ) 
+       timerButton = ( <div>Select level</div> ) 
     } else if (!this.state.timerStatus) { //player details received, ready to start
-        timerButton = ( <div className="timer__button" onClick={this.handleStartClick}> <h3>lets go!</h3> </div>) 
+        timerButton = ( <div onClick={this.handleStartClick}>lets go!</div>) 
     } else if (this.state.timerStatus === 'paused') { //paused
-        timerButton = ( <div className="timer__button" onClick={this.handleStartClick}> <h3>resume</h3> </div>) 
+        timerButton = ( <div onClick={this.handleStartClick}> resume</div>) 
     } else  { //active
-       timerButton = (<div className="timer__button" onClick={this.handlePauseClick}> <h3>pause</h3> </div>)
+       timerButton = (<div onClick={this.handlePauseClick}> pause</div>)
     }
 
   return (
     <div className="timer">
-        <div className="timer__countdown">
-            <h2>{this.state.countdown}</h2>
+        <div className="timer__hourglass">
         </div>
+        <div className="timer__button">
         {timerButton}
+        </div>
+        <div className="timer__countdown">
+        {this.state.countdown}
+        </div>
     </div>
    );
   }

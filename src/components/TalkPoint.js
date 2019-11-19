@@ -8,28 +8,28 @@ class TalkPoint extends Component {
   state = {  //wil eventually replace state with database that selects talkpoints from larger data set
       talkPoints: {
           English: {
-            beginner: {  1: { "content": "en beginner question 1"}, 
+            Beginner: {  1: { "content": "en beginner question 1"}, 
                          2: { "content": "en beginner question 2"}, 
                          3: { "content": "en beginner question 3"} },
-            intermediate: {  
+            Intermediate: {  
                          1: { "content": "en intermediate question 1"}, 
                          2: { "content": "en intermediate question 2"}, 
                          3: { "content": "en intermediate question 3"} },
-            advanced: {    
+            Advanced: {    
                          1: { "content": "en advanced question 1"}, 
                          2: { "content": "en advanced question 2"}, 
                          3: { "content": "en advanced question 3"} 
                         },
                     },
           Spanish: {
-            beginner: {  1: { "content": "sp beginner question 1"}, 
+            Beginner: {  1: { "content": "sp beginner question 1"}, 
                          2: { "content": "sp beginner question 2"}, 
                          3: { "content": "sp beginner question 3"} },
-            intermediate: {  
+            Intermediate: {  
                          1: { "content": "sp intermediate question 1"}, 
                          2: { "content": "sp intermediate question 2"}, 
                          3: { "content": "sp intermediate question 3"} },
-            advanced: {    
+            Advanced: {    
                          1: { "content": "sp advanced question 1"}, 
                          2: { "content": "sp advanced question 2"}, 
                          3: { "content": "sp advanced question 3"} },
@@ -44,7 +44,7 @@ class TalkPoint extends Component {
  }
 
  componentDidUpdate(prevProps, prevState) {
-   if (prevState.currentTalkpoint === this.state.currentTalkpoint) {
+   if (prevProps.turnCount !== this.props.turnCount) {
   this.getTalkPoint();
    }
 }
@@ -63,7 +63,8 @@ class TalkPoint extends Component {
  return (
 
     <div className="talkpoint">
-        <h3>Discuss in {this.props.turnLanguage}: {this.state.currentTalkpoint}</h3>
+        <h3>Discuss in {this.props.turnLanguage}:</h3> 
+        <p>{this.state.currentTalkpoint}</p>
     </div>
 
   );

@@ -4,6 +4,8 @@ import Nav from './components/Nav';
 import Player from './components/Player';
 import Timer from './components/Timer';
 import TalkPoint from './components/TalkPoint';
+import englishIcon from './images/united-kingdom.png';
+import spanishIcon from './images/spain.png';
 
 class App extends Component { 
   //this component handles logic for setting up the exchange, and manages important core data.
@@ -19,6 +21,7 @@ class App extends Component {
     readyToStart: false, // lets app know when we're ready to start the exchange.
     turnCount: 6, // keeps count of the turns.
     turnLanguage: "English", // language of current turn.
+    gameStatus: '', // is clock paused or active
   }
   
   //LOGIC FOR EXCHANGE SETUP
@@ -56,7 +59,11 @@ class App extends Component {
      }
      this.setState({ turnCount: this.state.turnCount - 1, turnLanguage: updatedTurnLanguage })
   }
-   // write function to countdown 
+
+  
+  handleGameStatusChange = (status) => {
+     this.setState ({ gameStatus: status })
+  }
     
   render() {
     let talkPoint;
@@ -81,25 +88,32 @@ class App extends Component {
       <div className='body'>
 
         <Nav />
-
+      
+      <div className="controls">
         <Player 
         class="player player--1"
+        icon={englishIcon}
         language={this.state.players[0].language}
         level={this.state.players[0].level}
         onChange={this.handleLevelSet}
+        gameStatus={this.state.gameStatus}
         />
 
         <Timer 
         readyToStart={this.state.readyToStart}
         handleTurnChange={this.handleTurnChange}
-        turnCount={this.state.turnCount} />
+        turnCount={this.state.turnCount} 
+        handleGameStatusChange={this.handleGameStatusChange}/>
 
         <Player 
         class="player player--2"
+        icon={spanishIcon}
         language={this.state.players[1].language}
         level={this.state.players[1].level}
         onChange={this.handleLevelSet}
+        gameStatus={this.state.gameStatus}
         />
+      </div>
 
         {talkPoint}
       </div>

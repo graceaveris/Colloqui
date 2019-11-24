@@ -1,0 +1,26 @@
+
+
+.hourglass {
+    width: 95%;
+    height: 1.2rem;
+    margin-top: .5rem;
+    grid-column: 1 / 5;
+    align-self: center;
+    border-radius: 1cm;
+    position: relative;
+    display: hidden;
+
+    &-glass {
+    width: 100%;
+    height: 1.2rem;
+    border-radius: 1cm;
+    background-color: white;
+    position: absolute;
+    }
+
+    &-sand {
+    height: 1.2rem;
+    border-radius: 1cm;
+    position: absolute;
+    }
+}

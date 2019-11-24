@@ -8,22 +8,21 @@ import englishIcon from './images/united-kingdom.png';
 import spanishIcon from './images/spain.png';
 
 class App extends Component { 
-  //this component handles logic for setting up the exchange, and manages important core data.
+  //this component handles logic for setting up the exchange, and manages important game-flow data.
   
   state = {
     
-    // better way of storing this?
     players: [
       { language: 'English', level: "" },
       { language: 'Spanish', level: "" },
     ],
 
-    readyToStart: false, // lets app know when we're ready to start the exchange.
     turnCount: 6, // keeps count of the turns.
     turnLanguage: "English", // language of current turn.
-    gameStatus: '', // is clock paused or active
+    gameStatus: '', // is game ready, paused, or active.
+    loadTalkPoints: false,
   }
-  
+// to delete
   //LOGIC FOR EXCHANGE SETUP
   componentDidUpdate(prevProps, prevState) {
     if (prevState.players !== this.state.players) {
@@ -34,7 +33,7 @@ class App extends Component {
   // checks whether game is ready to start
   handleStartCheck = () => {
     if (this.state.players[0].level && this.state.players[1].level) {
-      this.setState ({ readyToStart: true })
+      this.setState ({ gameStatus: 'received'})
     }
   }
   // saves player level on selection
@@ -49,7 +48,7 @@ class App extends Component {
   }
 
    // LOGIC FOR EXCHANGE FLOW
-   // keeps track of how many turns have been played
+   // changes turn - swicthes the langugae and counts turns
   handleTurnChange = () => {
     let updatedTurnLanguage;
      if (this.state.turnLanguage === 'Spanish') {
@@ -57,37 +56,39 @@ class App extends Component {
      } else {
       updatedTurnLanguage = 'Spanish'
      }
-     this.setState({ turnCount: this.state.turnCount - 1, turnLanguage: updatedTurnLanguage })
+     this.setState({ turnCount: this.state.turnCount - 1, turnLanguage: updatedTurnLanguage, gameStatus: 'ready' })
   }
 
-  
+  //to be passed to timer so it can update the status
   handleGameStatusChange = (status) => {
      this.setState ({ gameStatus: status })
+  }
+
+  loadTalkPoints = () => {
+    this.setState ({ loadTalkPoints: true })
   }
     
   render() {
     let talkPoint;
-    if (this.state.readyToStart) {
+    if (this.state.loadTalkPoints) {
       talkPoint = (
         <TalkPoint 
         className="talkpoint" 
         englishLevel={this.state.players[0].level}
         spanishLevel={this.state.players[1].level}
         turnCount={this.state.turnCount} 
-        turnLanguage={this.state.turnLanguage} />
-      )
+        turnLanguage={this.state.turnLanguage} />)
     } else {
-      talkPoint = (
-      <div className="talkpoint">
-      <h3>Select level to begin</h3>
-      </div> )
+      talkPoint = <div className="talkpoint"><h3>Exchange Overview</h3></div>
     }
+
   
     return (
     <div className="App">
       <div className='body'>
 
-        <Nav />
+      <Nav />
+      <p>{}</p>
       
       <div className="controls">
         <Player 
@@ -100,10 +101,12 @@ class App extends Component {
         />
 
         <Timer 
-        readyToStart={this.state.readyToStart}
         handleTurnChange={this.handleTurnChange}
         turnCount={this.state.turnCount} 
-        handleGameStatusChange={this.handleGameStatusChange}/>
+        handleGameStatusChange={this.handleGameStatusChange}
+        gameStatus={this.state.gameStatus}
+        turnLanguage={this.state.turnLanguage}
+        loadTalkPoints={this.loadTalkPoints}/>
 
         <Player 
         class="player player--2"
@@ -114,7 +117,6 @@ class App extends Component {
         gameStatus={this.state.gameStatus}
         />
       </div>
-
         {talkPoint}
       </div>
     </div>

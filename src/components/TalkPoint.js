@@ -1,71 +1,70 @@
 import React, { Component } from 'react';
+import data from '../data';
 
 class TalkPoint extends Component {
     //this component handles the exchange functionality
-    
     //props: englishLevel, spanishLevel, turnLanguage, turncount
 
   state = {  //wil eventually replace state with database that selects talkpoints from larger data set
-      talkPoints: {
-          English: {
-            Beginner: {  1: { "content": "en beginner question 1"}, 
-                         2: { "content": "en beginner question 2"}, 
-                         3: { "content": "en beginner question 3"} },
-            Intermediate: {  
-                         1: { "content": "en intermediate question 1"}, 
-                         2: { "content": "en intermediate question 2"}, 
-                         3: { "content": "en intermediate question 3"} },
-            Advanced: {    
-                         1: { "content": "en advanced question 1"}, 
-                         2: { "content": "en advanced question 2"}, 
-                         3: { "content": "en advanced question 3"} 
-                        },
-                    },
-          Spanish: {
-            Beginner: {  1: { "content": "sp beginner question 1"}, 
-                         2: { "content": "sp beginner question 2"}, 
-                         3: { "content": "sp beginner question 3"} },
-            Intermediate: {  
-                         1: { "content": "sp intermediate question 1"}, 
-                         2: { "content": "sp intermediate question 2"}, 
-                         3: { "content": "sp intermediate question 3"} },
-            Advanced: {    
-                         1: { "content": "sp advanced question 1"}, 
-                         2: { "content": "sp advanced question 2"}, 
-                         3: { "content": "sp advanced question 3"} },
-          },
-      },
+     data: data,
      ready: false,
-     currentTalkpoint: '',
+     roundCount: '',
    }
 
  componentDidMount() {
-   this.getTalkPoint();
+   this.updateTalkPoint();
  }
 
  componentDidUpdate(prevProps, prevState) {
    if (prevProps.turnCount !== this.props.turnCount) {
-  this.getTalkPoint();
+  this.updateTalkPoint();
    }
 }
 
- getTalkPoint = () => {
+ updateTalkPoint = () => {
    if (this.props.turnCount > 0) {
-    let turnCount = this.props.turnCount
-    turnCount = Math.round(turnCount / 2).toString()
-    let currentTalkpoint = this.state.talkPoints[this.props.turnLanguage][this.props.spanishLevel][turnCount].content
-    this.setState({ currentTalkpoint: currentTalkpoint })
+   let roundCount = Math.round(this.props.turnCount / 2).toString()
+   console.log(roundCount)
+
+    let languageLevel;
+    if (this.props.turnLanguage === "English") {
+    languageLevel = this.props.englishLevel
+    } else { languageLevel = this.props.spanishLevel }
+    let currentTalkpoint = {...this.state.data[this.props.turnLanguage][languageLevel][roundCount]}
+    let currentHelperVerbs = currentTalkpoint.helperverbs
+    console.log(currentHelperVerbs)
+
+    this.setState({ roundCount: roundCount, currentTalkpoint: currentTalkpoint, currentHelperVerbs: currentHelperVerbs, loaded: true })
    }
  }
-
  render() {
 
  return (
 
     <div className="talkpoint">
         <h3>Discuss in {this.props.turnLanguage}:</h3> 
-        <p>{this.state.currentTalkpoint}</p>
-    </div>
+      
+      { (this.state.loaded) ? 
+          <div className="talkpoint__main">
+            <p>{this.state.currentTalkpoint.content}</p>
+            <p>{this.state.currentTalkpoint.content_translation}</p>
+
+          <p>{this.state.currentTalkpoint.prompt_1}</p>
+          <p>{this.state.currentTalkpoint.prompt_1_translation}</p>
+
+          <p>{this.state.currentTalkpoint.prompt_2}</p>
+          <p>{this.state.currentTalkpoint.prompt_2_translation}</p>
+
+        <ul>  
+         {this.state.currentTalkpoint.helperverbs.map((item, index) =>
+         <li key={index}>{item.primary}, {item.translation}</li>)}
+         </ul>
+
+      </div> : <p>Loading</p>}
+
+      <div className="talkpoint__prompts">
+      </div>
+  </div>
 
   );
  }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import Hourglass from '../components/Hourglass';
 
 class Timer extends Component {
 
-//prop = readyToStart
-//prop =  turnCount
+
+//prop =  turnCount, gameStatus, handleGameStatusChange, 
   state = {
-    countdown: 5, //countdown start in seconds
-    timerStatus: '', // false, active, or paused
+    countdown: 20, //countdown start in seconds
   }
+
   
 //clears interval when unmounted
   componentWillUnmount() {
@@ -18,23 +19,20 @@ class Timer extends Component {
   handleStartClick = () => { 
     this.countDown()
     this.props.handleGameStatusChange('active') //sets app.js to active
-    this.setState({ timerStatus: 'active' })
+    this.props.loadTalkPoints()
   }
 
 // pauses timer
   handlePauseClick = () => { 
-     if (this.props.readyToStart) {
      clearInterval(this.inter)
-     this.props.handleGameStatusChange('paused') //sets app.js to active
-     this.setState({ timerStatus: 'paused' })
-   } 
+     this.props.handleGameStatusChange('paused') //sets app.js to paused
   }
 
-// changes turn and setsets timer when time runs out STAYS
+// changes turn and resets timer when time runs out
 changeTurn = () => {
   clearInterval(this.inter);
   this.props.handleTurnChange();
-  this.setState ({ countdown: 5, timerStatus: ''});
+  this.setState ({ countdown: 20});
 }
  
 //timer management STAYS
@@ -54,36 +52,59 @@ changeTurn = () => {
     }, 1000)
   }
 
-  // function to update the questions etc in main app once we hit zero
+  renderClockDisplay = (count) => {
+      var m = Math.floor(count % 3600 / 60); 
+      var s = Math.floor(count % 3600 % 60);
+      return m + ":" + ('0' + s).slice(-2);
+  }
 
   render() {
 
-    let timerButton; //maybe need convert to function in future
+  let timerButton;
 
-    if (!this.props.readyToStart) { //if we are waiting on player details
-       timerButton = ( <div>Select level</div> ) 
-    } else if (!this.state.timerStatus) { //player details received, ready to start
-        timerButton = ( <div onClick={this.handleStartClick}>lets go!</div>) 
-    } else if (this.state.timerStatus === 'paused') { //paused
-        timerButton = ( <div onClick={this.handleStartClick}> resume</div>) 
-    } else  { //active
-       timerButton = (<div onClick={this.handlePauseClick}> pause</div>)
-    }
+  switch(this.props.gameStatus) {
+    case '':
+      timerButton = ''
+      break;
+    case 'received':
+      timerButton = <div className="timer__button" onClick={this.handleStartClick}>Start Exchange</div>
+      break;
+    case 'ready':
+      timerButton = <div className="timer__button" onClick={this.handleStartClick}>lets go!</div>
+      break;
+    case 'paused':
+      timerButton = <div className="timer__button" onClick={this.handleStartClick}>resume</div>
+      break;
+    default: timerButton = <div className="timer__button" onClick={this.handlePauseClick}> pause</div>
+  }
+
+  let timerClockDisplay;
+  if (this.props.gameStatus) {
+    timerClockDisplay = (
+      <div className="timer__countdown">
+        {this.renderClockDisplay(this.state.countdown)}
+        </div>
+    )
+  }
+
+  const spanishStyle = {
+    gridAutoFlow: 'dense' 
+  }
 
   return (
     <div className="timer">
-        <div className="timer__hourglass">
-        </div>
-        <div className="timer__button">
+
+       {(this.props.gameStatus) ? 
+       (<Hourglass 
+        countdown={this.state.countdown}
+        turnLanguage={this.props.turnLanguage}/>) 
+        : (<div>Select level to begin</div>)}
         {timerButton}
-        </div>
-        <div className="timer__countdown">
-        {this.state.countdown}
-        </div>
+        {timerClockDisplay}
     </div>
    );
   }
-  }
+}
 
 
 export default Timer;

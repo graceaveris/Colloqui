@@ -10,8 +10,7 @@ Styled with: Sass, using CSS Grid and BEM naming strategy.
 
 - Users can select their level preference (beginner, intermediate, advanced).
 - Users take turns discussing various topics in their target language.
-- Users get served conversation topics based on their target language.
-- Users get helpful hints by way of pompts and vocabulary.
+- Users get helpful hints by way of topic prompts and vocabulary lists.
 - Users can pause languguage exchange, and skip questions.
 - Mobile friendly, and easy to use on a single device for two users.
 

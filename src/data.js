@@ -5,32 +5,35 @@
 
   English: {
     Beginner: {  
-        1: { "content": "english Beginner ONE: Talk about the members of your family, and where they live",
-             "content_translation": "Hable sobre los miembros de su familia y dónde viven.", 
-              "prompt_1": "How many siblings do you have",
-              "prompt_1_translation": "¿cuantas hermanos tienes?",
-              "prompt_2": "I live with my......",
-              "prompt_2_translation": "Yo vivo con mi...",
-              hhelperverbs: [ { "primary": "hello", "translation": "hola"}, { "primary": "comer", "translation": "to eat"} ],
+        1: { "id": "eb1", //(e)nglish(b)eginner(1)
+             "talkpoint_targetlang": "eb1: Talk about the members of your family, and where they live",
+             "talkpoint_translation": "Hable sobre los miembros de su familia y dónde viven.", 
+              prompts: [ 
+                  { "targetlang": "How many siblings do you have?", "translation": "¿cuantas hermanos tienes?"},
+                  { "targetlang": "I live with my......", "translation": "Yo vivo con mi..." } ],
+              helperverbs: [ { "targetlang": "hello", "translation": "hola"}, { "targetlang": "comer", "translation": "to eat"} ],
+              helpernouns: [ { "targetlang": "hello", "translation": "hola"}, { "primary": "comer", "translation": "to eat"} ],
             },
 
-        2: { "content": "english Beginner TWO: Talk about the members of your family, and where they live",
-            "content_translation": "Hable sobre los miembros de su familia y dónde viven.", 
-             "prompt_1": "How many siblings do you have",
-             "prompt_1_translation": "¿cuantas hermanos tienes?",
-             "prompt_2": "I live with my......",
-             "prompt_2_translation": "Yo vivo con mi...",
-             helperverbs: [ { "primary": "hello", "translation": "hola"}, { "primary": "comer", "translation": "to eat"} ],
-            }, 
+        2: { "id": "eb2", //(e)nglish(b)eginner(1)
+            "talkpoint_targetlang": "eb1: Talk about the members of your family, and where they live",
+            "talkpoint_translation": "Hable sobre los miembros de su familia y dónde viven.", 
+             prompts: [ 
+                 { "targetlang": "How many siblings do you have?", "translation": "¿cuantas hermanos tienes?"},
+                 { "targetlang": "I live with my......", "translation": "Yo vivo con mi..." } ],
+             helperverbs: [ { "targetlang": "hello", "translation": "hola"}, { "targetlang": "comer", "translation": "to eat"} ],
+             helpernouns: [ { "targetlang": "hello", "translation": "hola"}, { "primary": "comer", "translation": "to eat"} ],
+           },
 
-        3: { "content": "english Beginner THREE: Talk about the members of your family, and where they live",
-            "content_translation": "Hable sobre los miembros de su familia y dónde viven.", 
-            "prompt_1": "How many siblings do you have",
-            "prompt_1_translation": "¿cuantas hermanos tienes?",
-            "prompt_2": "I live with my......",
-            "prompt_2_translation": "Yo vivo con mi...",
-            helperverbs: [ { "primary": "hello", "translation": "hola"}, { "primary": "comer", "translation": "to eat"} ],
-        },
+        3: { "id": "eb3", //(e)nglish(b)eginner(1)
+           "talkpoint_targetlang": "eb1: Talk about the members of your family, and where they live",
+           "talkpoint_translation": "Hable sobre los miembros de su familia y dónde viven.", 
+            prompts: [ 
+                { "targetlang": "How many siblings do you have?", "translation": "¿cuantas hermanos tienes?"},
+                { "targetlang": "I live with my......", "translation": "Yo vivo con mi..." } ],
+            helperverbs: [ { "targetlang": "hello", "translation": "hola"}, { "targetlang": "comer", "translation": "to eat"} ],
+            helpernouns: [ { "targetlang": "hello", "translation": "hola"}, { "primary": "comer", "translation": "to eat"} ],
+          },
     },
 
     Intermediate: {  

@@ -79,7 +79,7 @@ class App extends Component {
         turnCount={this.state.turnCount} 
         turnLanguage={this.state.turnLanguage} />)
     } else {
-      talkPoint = <div className="talkpoint"><h3>Exchange Overview</h3></div>
+      talkPoint = <div className="exchange-overview">Exchange Overview</div>
     }
 
   
@@ -88,7 +88,6 @@ class App extends Component {
       <div className='body'>
 
       <Nav />
-      <p>{}</p>
       
       <div className="controls">
         <Player 
@@ -114,10 +113,13 @@ class App extends Component {
         language={this.state.players[1].language}
         level={this.state.players[1].level}
         onChange={this.handleLevelSet}
-        gameStatus={this.state.gameStatus}
-        />
-      </div>
+        gameStatus={this.state.gameStatus}/>
+       </div >
+
+       <div className="main-content">
         {talkPoint}
+       </div>
+       
       </div>
     </div>
   );

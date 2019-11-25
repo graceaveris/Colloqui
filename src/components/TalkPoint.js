@@ -45,26 +45,29 @@ class TalkPoint extends Component {
         <h3>Discuss in {this.props.turnLanguage}:</h3> 
       
       { (this.state.loaded) ? 
-          <div className="talkpoint__main">
-            <p>{this.state.currentTalkpoint.content}</p>
-            <p>{this.state.currentTalkpoint.content_translation}</p>
+        <div className="talkpoint__main">
+          <p>{this.state.currentTalkpoint.targetlang}</p>
+          <p>{this.state.currentTalkpoint.translation}</p>
 
-          <p>{this.state.currentTalkpoint.prompt_1}</p>
-          <p>{this.state.currentTalkpoint.prompt_1_translation}</p>
+          <ul>  
+           {this.state.currentTalkpoint.prompts.map((item, index) =>
+           <li key={index}>{item.targetlang}, {item.translation}</li>)}
+          </ul>
 
-          <p>{this.state.currentTalkpoint.prompt_2}</p>
-          <p>{this.state.currentTalkpoint.prompt_2_translation}</p>
-
-        <ul>  
-         {this.state.currentTalkpoint.helperverbs.map((item, index) =>
-         <li key={index}>{item.primary}, {item.translation}</li>)}
-         </ul>
-
-      </div> : <p>Loading</p>}
+          <ul>  
+           {this.state.currentTalkpoint.helpernouns.map((item, index) =>
+           <li key={index}>{item.targetlang}, {item.translation}</li>)}
+          </ul>
+        
+          <ul>  
+          {this.state.currentTalkpoint.helperverbs.map((item, index) =>
+          <li key={index}>{item.targetlang}, {item.translation}</li>)}
+          </ul>
+      </div> : <p>Loading</p> }
 
       <div className="talkpoint__prompts">
       </div>
-  </div>
+    </div>
 
   );
  }

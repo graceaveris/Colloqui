@@ -4,7 +4,7 @@ WIP
 
 Built with: ReactJs.
 
-Styled with: Sass, using Grids and BEM naming strategy.
+Styled with: Sass, using CSS Grid and BEM naming strategy.
 
 => Version 1 - End Goal <=
 

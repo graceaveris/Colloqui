@@ -14,7 +14,7 @@
     }
 
     &--2 {
-        grid-column:  6 / 8;
+        grid-column:  7 / 9;
         align-items: center; //aligns vertically
         flex-direction: row-reverse;
     }
@@ -27,8 +27,8 @@
     &__level-select {
         background-color: white;
         position: relative;
-        margin: 1rem;
-        padding: .5rem;
+        margin: .6rem;
+        padding: .4rem;
         outline: none;
 
         .p {

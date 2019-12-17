@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import './sass/main.scss';
+
 import Nav from './components/Nav';
 import Player from './components/Player';
 import Timer from './components/Timer';
 import TalkPoint from './components/TalkPoint';
+import ReadyScreen from './components/ReadyScreen';
+import Overview from './components/Overview';
+
 import englishIcon from './images/united-kingdom.png';
 import spanishIcon from './images/spain.png';
 
@@ -19,8 +23,7 @@ class App extends Component {
 
     turnCount: 6, // keeps count of the turns.
     turnLanguage: "English", // language of current turn.
-    gameStatus: '', // is game ready, paused, or active.
-    loadTalkPoints: false,
+    gameStatus: '', // is game received(as in levels recieved), ready(for next turn), paused, or active.
   }
 // to delete
   //LOGIC FOR EXCHANGE SETUP
@@ -63,25 +66,22 @@ class App extends Component {
   handleGameStatusChange = (status) => {
      this.setState ({ gameStatus: status })
   }
-
-  loadTalkPoints = () => {
-    this.setState ({ loadTalkPoints: true })
-  }
     
   render() {
-    let talkPoint;
-    if (this.state.loadTalkPoints) {
-      talkPoint = (
+    let mainContent;
+    if ((this.state.gameStatus  === "paused") || (this.state.gameStatus  === "active")) {
+      mainContent = (
         <TalkPoint 
         className="talkpoint" 
         englishLevel={this.state.players[0].level}
         spanishLevel={this.state.players[1].level}
         turnCount={this.state.turnCount} 
         turnLanguage={this.state.turnLanguage} />)
-    } else {
-      talkPoint = <div className="exchange-overview">Exchange Overview</div>
+    } else if (this.state.gameStatus === "ready") { 
+      mainContent = <ReadyScreen />
+    } else { 
+      mainContent = <Overview />
     }
-
   
     return (
     <div className="App">
@@ -104,8 +104,7 @@ class App extends Component {
         turnCount={this.state.turnCount} 
         handleGameStatusChange={this.handleGameStatusChange}
         gameStatus={this.state.gameStatus}
-        turnLanguage={this.state.turnLanguage}
-        loadTalkPoints={this.loadTalkPoints}/>
+        turnLanguage={this.state.turnLanguage}/>
 
         <Player 
         class="player player--2"
@@ -117,7 +116,7 @@ class App extends Component {
        </div >
 
        <div className="main-content">
-        {talkPoint}
+        {mainContent}
        </div>
        
       </div>

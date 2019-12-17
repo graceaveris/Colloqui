@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Hourglass = ( props ) => {
     //changes the direction and color of the countdown based on the user
@@ -7,16 +7,9 @@ const Hourglass = ( props ) => {
     let sandWidth = (props.countdown * 5).toString() + '%' // 20 seconds
     let sandStyle;
     if (props.turnLanguage === 'Spanish') {
-      sandStyle = {
-        width: sandWidth,
-        backgroundColor: 'yellow', 
-        right: '0', 
-      }
+      sandStyle = { width: sandWidth, backgroundColor: '#E8D547', right: '0', }
     } else {
-      sandStyle = {
-        width: sandWidth,
-        backgroundColor: 'darkblue', 
-      }
+      sandStyle = { width: sandWidth, backgroundColor: 'darkblue', }
     }
   
   return (
@@ -28,6 +21,5 @@ const Hourglass = ( props ) => {
     </div>
   );
  };
-export default Hourglass;
 
-//    right: 0;
+export default Hourglass;

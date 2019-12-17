@@ -1,4 +1,12 @@
-$yellow-p: #E8D33F;
+$yellow-p: #E8D547;
+$yellow_darker: #998A1E;
+$red-p: #C60000;
+$red-darker: #750000;
+$blue-p: darkblue;
+$blue-darker: #051335;
+$grey-p:  #B5B7BC;
+$smoke: whitesmoke;
+$grey: grey;
 $lic: #11110F;
 
 
@@ -17,7 +25,7 @@ $lic: #11110F;
 }
 
 .body {
-    font-family: CenturyGothic, Helvetica, sans-serif;
+    font-family: Muli, Helvetica, sans-serif;
     color: $lic;
     display: grid;
     grid-template-columns: repeat(9, 1fr);

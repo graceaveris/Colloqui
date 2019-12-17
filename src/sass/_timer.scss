@@ -1,33 +1,38 @@
 .timer {
-    grid-column: 3 / 6;
-    background-color: lightgray;
+    grid-column: 3 / 7;
+    background-color: $grey-p;
     width: 100%;
-    height: 5rem;
+    height: 100%;
     text-align: center;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
     justify-items: center;
-    
+    background-image: linear-gradient(to top, $grey-p, #97999E);
 
     &__countdown {
+    grid-column: 3 / 5;
        font-size: 1.8rem;
        margin-left: 1rem;
        color: white;
-       grid-column: 3 / 5;
        justify-self: start;
     }
 
     &__button {
-        font-size: .8rem;
-        background-color: whitesmoke;
-        width: 7rem;
-        padding: 5px;
-        margin-bottom: 5px;
-        margin-left: 1rem;
-        border-radius: 3px;
         grid-column: 1 / 3;
-        justify-self: end;
+        font-size: 1.1rem;
+        background-color: whitesmoke;
+        min-width: 10rem;
+        padding: 7px;
+        margin: .6rem 0 .6rem 1rem;
+        border-radius: 50px;
+
+        box-shadow: 3px 3px 5px grey;
+
+        &:hover {
+            background-color: #E2E2E2;
+            cursor: pointer;
+        }
 
     }
 }

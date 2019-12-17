@@ -1,8 +1,9 @@
 .nav {
     grid-column: 1 / -1;
-    background-color:$yellow-p;
+    background-color: $grey-p;
     padding: 1rem;
     width: 100%;
+    color: $smoke;
 
     &__list {
         display: grid;
@@ -21,8 +22,7 @@
        grid-column: 2 / 3;
 
        padding: .5rem;
-       border: 2px solid $lic;
-
+       border: 2px solid $smoke;
        justify-self: end;
        align-self: center;
     }

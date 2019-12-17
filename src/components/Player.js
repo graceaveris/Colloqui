@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const player = ( props ) => {
 
@@ -7,7 +7,7 @@ const player = ( props ) => {
     
   return (
       <div className={props.class}>
-        <img src={props.icon} className="player__icon"/>
+        <img src={props.icon} alt="flag icon" className="player__icon"/>
 
        { (isGameActive) ? (<div className="player__level-text-active">{props.level}</div>) 
        : ( <div className="player__level-select">

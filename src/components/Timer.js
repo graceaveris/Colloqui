@@ -6,7 +6,7 @@ class Timer extends Component {
 
 //prop =  turnCount, gameStatus, handleGameStatusChange, 
   state = {
-    countdown: 20, //countdown start in seconds
+    countdown: 3, //countdown start in seconds
   }
 
   
@@ -19,7 +19,6 @@ class Timer extends Component {
   handleStartClick = () => { 
     this.countDown()
     this.props.handleGameStatusChange('active') //sets app.js to active
-    this.props.loadTalkPoints()
   }
 
 // pauses timer
@@ -85,10 +84,6 @@ changeTurn = () => {
         {this.renderClockDisplay(this.state.countdown)}
         </div>
     )
-  }
-
-  const spanishStyle = {
-    gridAutoFlow: 'dense' 
   }
 
   return (

@@ -22,7 +22,7 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/sass -o src/css --watch",
     "launch-project": "npm-run-all start watch-css",
     "build-project": "npm-run-all build-css build start",
-    "heroku-postbuild": "npm-run-all build-css start-build"
+    "heroku-postbuild": "npm-run-all build-css build"
   },
   "eslintConfig": {
     "extends": "react-app"

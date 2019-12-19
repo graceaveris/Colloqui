@@ -7,7 +7,7 @@ const nav = ( props ) => {
     <nav className="nav">
         <ul className="nav__list">
             <li className="nav__logo">Colloqui</li>
-            <li className="nav__item">Get Started</li>
+            {/* <li className="nav__item">Get Started</li> */}
         </ul>
     </nav>
 

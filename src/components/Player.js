@@ -2,14 +2,11 @@ import React from 'react';
 
 const player = ( props ) => {
 
-  let isGameActive = true;
-  if ((props.gameStatus === 'received') || (!props.gameStatus)) { isGameActive = false }
-    
   return (
       <div className={props.class}>
         <img src={props.icon} alt="flag icon" className="player__icon"/>
 
-       { (isGameActive) ? (<div className="player__level-text-active">{props.level}</div>) 
+       { (props.gameStatus) ? (<div className="player__level-text-active">{props.level}</div>) 
        : ( <div className="player__level-select">
         <div className="player__select-text">Select Level ▼</div>
             <select name="level" className="player__select-original" onChange={(e) => props.onChange(e.target.value, props.language)}>

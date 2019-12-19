@@ -8,7 +8,6 @@ class Timer extends Component {
   state = {
     countdown: 3, //countdown start in seconds
   }
-
   
 //clears interval when unmounted
   componentWillUnmount() {
@@ -62,14 +61,8 @@ changeTurn = () => {
   let timerButton;
 
   switch(this.props.gameStatus) {
-    case '':
-      timerButton = ''
-      break;
-    case 'received':
-      timerButton = <div className="timer__button" onClick={this.handleStartClick}>Start Exchange</div>
-      break;
     case 'ready':
-      timerButton = <div className="timer__button" onClick={this.handleStartClick}>lets go!</div>
+      timerButton = <div className="timer__button" onClick={this.handleStartClick}>Start Timer</div>
       break;
     case 'paused':
       timerButton = <div className="timer__button" onClick={this.handleStartClick}>resume</div>
@@ -78,22 +71,17 @@ changeTurn = () => {
   }
 
   let timerClockDisplay;
-  if (this.props.gameStatus) {
     timerClockDisplay = (
       <div className="timer__countdown">
         {this.renderClockDisplay(this.state.countdown)}
         </div>
     )
-  }
 
   return (
     <div className="timer">
-
-       {(this.props.gameStatus) ? 
-       (<Hourglass 
+      <Hourglass 
         countdown={this.state.countdown}
-        turnLanguage={this.props.turnLanguage}/>) 
-        : (<div>Select level to begin</div>)}
+        turnLanguage={this.props.turnLanguage}/>
         {timerButton}
         {timerClockDisplay}
     </div>

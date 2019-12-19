@@ -4,15 +4,24 @@
   "private": true,
   "dependencies": {
     "node-sass": "^4.13.0",
+    "node-sass-chokidar": "^1.4.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "react-transition-group": "^4.3.0",
+    "serve": "^11.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-build": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-css": "node-sass-chokidar src/sass -o src/css",
+    "watch-css": "npm run build-css && node-sass-chokidar src/sass -o src/css --watch",
+    "launch-project": "npm-run-all start watch-css",
+    "build-project": "npm-run-all build-css build start",
+    "heroku-postbuild": "npm-run-all build-css start-build"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './sass/main.scss';
+import './css/main.css';
 
 import Nav from './components/Nav';
 import Player from './components/Player';
@@ -17,29 +17,21 @@ class App extends Component {
   state = {
     
     players: [
-      { language: 'English', level: "" },
-      { language: 'Spanish', level: "" },
+      { language: 'English', level: null },
+      { language: 'Spanish', level: null },
     ],
 
     turnCount: 6, // keeps count of the turns.
     turnLanguage: "English", // language of current turn.
-    gameStatus: '', // is game received(as in levels recieved), ready(for next turn), paused, or active.
+    gameStatus: '', // is game ready(for next turn), paused, or active.
+
+    showGameControls: false,
   }
-// to delete
-  //LOGIC FOR EXCHANGE SETUP
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.players !== this.state.players) {
-      this.handleStartCheck()
-    }
+
+  toggleControlsHandler = () => {
+    this.setState({ showGameControls: true, gameStatus: 'ready' })
   }
-  
-  // checks whether game is ready to start
-  handleStartCheck = () => {
-    if (this.state.players[0].level && this.state.players[1].level) {
-      this.setState ({ gameStatus: 'received'})
-    }
-  }
-  // saves player level on selection
+
   handleLevelSet = (level, language) => {
     let playersArray = [...this.state.players]
     playersArray.forEach(p => {
@@ -47,7 +39,7 @@ class App extends Component {
         p.level = level      
       }
     })
-    this.setState({ players: playersArray})
+    this.setState({ playersArray: playersArray })
   }
 
    // LOGIC FOR EXCHANGE FLOW
@@ -78,9 +70,9 @@ class App extends Component {
         turnCount={this.state.turnCount} 
         turnLanguage={this.state.turnLanguage} />)
     } else if (this.state.gameStatus === "ready") { 
-      mainContent = <ReadyScreen />
+      mainContent = <ReadyScreen language={this.state.turnLanguage} turnCount={this.state.turnCount}/>
     } else { 
-      mainContent = <Overview />
+      mainContent = <Overview toggleControls={this.toggleControlsHandler} players={this.state.players}/>
     }
   
     return (
@@ -99,12 +91,14 @@ class App extends Component {
         gameStatus={this.state.gameStatus}
         />
 
+        { (this.state.showGameControls) ? 
         <Timer 
         handleTurnChange={this.handleTurnChange}
         turnCount={this.state.turnCount} 
         handleGameStatusChange={this.handleGameStatusChange}
         gameStatus={this.state.gameStatus}
         turnLanguage={this.state.turnLanguage}/>
+        : null }
 
         <Player 
         class="player player--2"

@@ -1,5 +1,5 @@
 $yellow-p: #E8D547;
-$yellow_darker: #998A1E;
+$yellow-darker: #998A1E;
 $red-p: #C60000;
 $red-darker: #750000;
 $blue-p: darkblue;
@@ -8,6 +8,15 @@ $grey-p:  #B5B7BC;
 $smoke: whitesmoke;
 $grey: grey;
 $lic: #11110F;
+
+
+//helper classes
+.spanishColor {
+    color: $yellow-p
+}
+.englishColor {
+    color: $red-p
+}
 
 
 //this is setup that would work for any project

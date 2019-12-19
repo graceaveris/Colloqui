@@ -3,10 +3,9 @@ import Hourglass from '../components/Hourglass';
 
 class Timer extends Component {
 
-
 //prop =  turnCount, gameStatus, handleGameStatusChange, 
   state = {
-    countdown: 3, //countdown start in seconds
+    countdown: 10, //countdown start in seconds
   }
   
 //clears interval when unmounted
@@ -30,7 +29,7 @@ class Timer extends Component {
 changeTurn = () => {
   clearInterval(this.inter);
   this.props.handleTurnChange();
-  this.setState ({ countdown: 20});
+  this.setState ({ countdown: 10});
 }
  
 //timer management STAYS

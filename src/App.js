@@ -15,16 +15,14 @@ class App extends Component {
   //this component handles logic for setting up the exchange, and manages important game-flow data.
   
   state = {
-    
     players: [
       { language: 'English', level: null },
       { language: 'Spanish', level: null },
     ],
 
-    turnCount: 6, // keeps count of the turns.
+    turnCount: 6, // 6 'turns' and three 'rounds' per exchange.
     turnLanguage: "English", // language of current turn.
-    gameStatus: '', // is game ready(for next turn), paused, or active.
-
+    gameStatus: '', // is game false(waiting for level setup), ready(for next turn), paused, or active.
     showGameControls: false,
   }
 
@@ -36,22 +34,22 @@ class App extends Component {
     let playersArray = [...this.state.players]
     playersArray.forEach(p => {
       if (p.language === language) {
-        p.level = level      
+        p.level = level
       }
     })
     this.setState({ playersArray: playersArray })
   }
 
    // LOGIC FOR EXCHANGE FLOW
-   // changes turn - swicthes the langugae and counts turns
+   // changes 'turn' (switches the langugae and counts down turns)
   handleTurnChange = () => {
     let updatedTurnLanguage;
-     if (this.state.turnLanguage === 'Spanish') {
+    if (this.state.turnLanguage === 'Spanish') {
        updatedTurnLanguage = 'English' 
      } else {
       updatedTurnLanguage = 'Spanish'
-     }
-     this.setState({ turnCount: this.state.turnCount - 1, turnLanguage: updatedTurnLanguage, gameStatus: 'ready' })
+    }
+    this.setState({ turnCount: this.state.turnCount - 1, turnLanguage: updatedTurnLanguage, gameStatus: 'ready' })
   }
 
   //to be passed to timer so it can update the status
@@ -73,9 +71,9 @@ class App extends Component {
       mainContent = <ReadyScreen language={this.state.turnLanguage} turnCount={this.state.turnCount}/>
     } else { 
       mainContent = <Overview toggleControls={this.toggleControlsHandler} players={this.state.players}/>
-    }
+  }
   
-    return (
+  return (
     <div className="App">
       <div className='body'>
 

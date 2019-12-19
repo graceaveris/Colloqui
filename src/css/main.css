@@ -1,3 +1,9 @@
+.spanishColor {
+  color: #E8D547; }
+
+.englishColor {
+  color: #C60000; }
+
 *,
 *::before,
 *::after {
@@ -19,6 +25,7 @@
 
 .controls {
   width: 100%;
+  height: 5.25rem;
   grid-column: 1 / -1;
   background-color: #F3F8F2;
   display: grid;
@@ -65,17 +72,18 @@
   .timer__countdown {
     grid-column: 3 / 5;
     font-size: 1.8rem;
-    margin-left: 1rem;
     color: white;
-    justify-self: start; }
+    justify-self: start;
+    margin-left: 1rem; }
   .timer__button {
     grid-column: 1 / 3;
     font-size: 1.1rem;
     background-color: whitesmoke;
     min-width: 10rem;
-    padding: 7px;
-    margin: .6rem 0 .6rem 1rem;
+    padding: 5px;
     border-radius: 50px;
+    justify-self: end;
+    margin-bottom: .5rem;
     box-shadow: 3px 3px 5px grey; }
     .timer__button:hover {
       background-color: #E2E2E2;
@@ -142,6 +150,7 @@ p {
 
 .talkpoint {
   width: 100%;
+  min-height: 90vh;
   text-align: center;
   padding-bottom: 3rem;
   padding-top: 1rem; }
@@ -218,7 +227,7 @@ p {
 .hourglass {
   width: 90%;
   height: 1.2rem;
-  margin-top: .5rem;
+  margin: .5rem 0;
   grid-column: 1 / 5;
   align-self: center;
   border-radius: 1cm;
@@ -237,51 +246,52 @@ p {
 
 .overview {
   width: 100%;
-  padding: 3rem 2rem 1rem 2rem;
-  font-size: 1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr; }
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  font-size: 1rem;
+  padding: 2rem; }
   .overview span {
     font-weight: bold;
     padding: 0 .2rem; }
   .overview__spanish {
     grid-column: 1 / 2;
-    text-align: end;
-    padding-right: 1rem; }
+    text-align: end; }
   .overview__english {
-    grid-column: 2 / 3;
-    padding-left: 1rem; }
-  .overview__header {
-    font-size: 2rem;
-    padding: 1rem; }
+    grid-column: 2 / 3; }
   .overview__instruction {
     padding: .3rem; }
     .overview__instruction--final {
       padding-top: 2rem; }
+    .overview__instruction--header {
+      font-size: 2rem;
+      margin-bottom: 1rem; }
+  .overview__button-container {
+    grid-column: 1 / 3;
+    text-align: center;
+    justify-self: center;
+    margin-top: 1rem; }
   .overview__button {
     font-size: 1.1rem;
-    background-color: whitesmoke;
+    background-color: #E2E2E2;
     width: 10rem;
-    padding: 7px;
-    margin: .6rem 0 .6rem 1rem;
+    padding: 5px;
     border-radius: 50px;
-    box-shadow: 3px 3px 5px grey;
+    box-shadow: 1px 2px 3px grey;
     text-align: center; }
     .overview__button:hover {
-      background-color: #E2E2E2;
+      background-color: whitesmoke;
       cursor: pointer; }
-  .overview__setup-instructions {
-    grid-column: 1 / 3;
-    display: flex;
-    margin-top: 2rem;
-    justify-content: center;
-    align-items: center; }
 
 .readyscreen {
   width: 100%;
-  padding: 3rem 2rem 1rem 2rem;
   font-size: 1rem;
+  padding: 2rem;
   text-align: center; }
   .readyscreen__header {
     font-size: 2rem;
-    padding: .5rem; }
+    margin-bottom: 1rem; }
+  .readyscreen__translation {
+    font-size: 1rem;
+    color: grey; }
